@@ -11,58 +11,83 @@ define(function (require, exports, module) {
         KeyBindingManager = brackets.getModule("command/KeyBindingManager"),
         EditorManager  = brackets.getModule("editor/EditorManager");
     
-    var UP = "divsmith.nav-shortcuts.up";
-    var DOWN = "divsmith.nav-shortcuts.down";
-    var LEFT = "divsmith.nav-shortcuts.left";
-    var RIGHT = "divsmith.nav-shortcuts.right";
+    var characterPosition = 0;
     
-    function getCursorPosition() {
-        var Editor = EditorManager.getFocusedEditor();
-        
-        if (Editor) {
-            return Editor.getCursorPos();
-        } else {
-            return false;
-        }
+    function getCharacterPosition() {
+        return getEditor(function(Editor) {
+            var position = Editor.getCursorPos();
+            
+            if (position.ch > characterPosition) {
+                characterPosition = position.ch;
+            }
+            
+            return characterPosition;
+        });
     }
     
-    function setCursorPosition(line, character) {
+    function getLinePosition() {
+        return getEditor(function(Editor) {
+            var position = Editor.getCursorPos();
+            
+           return position.line; 
+        });
+    }
+    
+    function setLinePosition(line) {
+        return getEditor(function(Editor) {
+            return Editor.setCursorPos(line, getCharacterPosition());
+        });
+    }
+    
+    function setCharacterPosition(character) {
+        return getEditor(function(Editor) {
+            characterPosition = character;
+            return Editor.setCursorPos(getLinePosition(), character);
+        });
+    }
+    
+    function getEditor(callback) {
         var Editor = EditorManager.getFocusedEditor();
         
         if (Editor) {
-            return Editor.setCursorPos(line, character);
+            return callback(Editor);
         } else {
             return false;
         }
     }
     
     function handleUp() {
-        var position = getCursorPosition();
+        var line = getLinePosition();
         
-        if (position.line > 0) {
-            setCursorPosition(position.line - 1, position.ch);
+        if (line > 0) {
+            setLinePosition(line - 1);
         }
     }
     
     function handleDown() {
-        var position = getCursorPosition();
+        var line = getLinePosition();
         
-        setCursorPosition(position.line + 1, position.ch);
+        setLinePosition(line + 1);
     }
     
     function handleLeft() {
-        var position = getCursorPosition();
+        var character = getCharacterPosition();
         
-        if (position.ch > 0) {
-            setCursorPosition(position.line, position.ch - 1);
+        if (character > 0) {
+            setCharacterPosition(character - 1);
         }
     }
     
     function handleRight() {
-        var position = getCursorPosition();
+        var character = getCharacterPosition();
         
-        setCursorPosition(position.line, position.ch + 1);
+        setCharacterPosition(character + 1);
     }
+    
+    var UP = "divsmith.nav-shortcuts.up";
+    var DOWN = "divsmith.nav-shortcuts.down";
+    var LEFT = "divsmith.nav-shortcuts.left";
+    var RIGHT = "divsmith.nav-shortcuts.right";
     
     CommandManager.register("Nav-shortcuts UP", UP, handleUp);
     CommandManager.register("Nav-shortcuts DOWN", DOWN, handleDown);
