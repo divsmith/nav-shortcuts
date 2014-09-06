@@ -121,11 +121,11 @@ define(function (require, exports, module) {
     var LINE_END = "divsmith.nav-shortcuts.line-end";
     var LINE_BEGIN = "divsmith.nav-shortcuts.line-begin";
     
-    CommandManager.register('Nav-shortcuts Line End', LINE_END, handleLineEnd);
-    CommandManager.register('Nav-shortcuts Line Begin', LINE_BEGIN, handleLineBegin);
-    CommandManager.register("Nav-shortcuts UP", UP, handleUp);
-    CommandManager.register("Nav-shortcuts DOWN", DOWN, handleDown);
-    CommandManager.register("Nav-shortcuts LEFT", LEFT, handleLeft);
-    CommandManager.register("Nav-shortcuts RIGHT", RIGHT, handleRight);
+    CommandManager.register('Nav Shortcuts Line End', LINE_END, handleLineEnd);
+    CommandManager.register('Nav Shortcuts Line Begin', LINE_BEGIN, handleLineBegin);
+    CommandManager.register("Nav Shortcuts Up", UP, handleUp);
+    CommandManager.register("Nav Shortcuts Down", DOWN, handleDown);
+    CommandManager.register("Nav Shortcuts Left", LEFT, handleLeft);
+    CommandManager.register("Nav Shortcuts Right", RIGHT, handleRight);
      
 });
