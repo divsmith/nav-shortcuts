@@ -16,38 +16,53 @@ define(function (require, exports, module) {
     var LEFT = "divsmith.nav-shortcuts.left";
     var RIGHT = "divsmith.nav-shortcuts.right";
     
-    function handleUp() {
+    function getCursorPosition() {
         var Editor = EditorManager.getFocusedEditor();
-        var position = Editor.getCursorPos();
+        
+        if (Editor) {
+            return Editor.getCursorPos();
+        } else {
+            return false;
+        }
+    }
+    
+    function setCursorPosition(line, character) {
+        var Editor = EditorManager.getFocusedEditor();
+        
+        if (Editor) {
+            return Editor.setCursorPos(line, character);
+        } else {
+            return false;
+        }
+    }
+    
+    function handleUp() {
+        var position = getCursorPosition();
         
         if (position.line > 0) {
-            Editor.setCursorPos(position.line - 1, position.ch);
+            setCursorPosition(position.line - 1, position.ch);
         }
     }
     
     function handleDown() {
-        var Editor = EditorManager.getFocusedEditor();
-        var position = Editor.getCursorPos();
+        var position = getCursorPosition();
         
-        Editor.setCursorPos(position.line + 1, position.ch);
+        setCursorPosition(position.line + 1, position.ch);
     }
     
     function handleLeft() {
-        var Editor = EditorManager.getFocusedEditor();
-        var position = Editor.getCursorPos();
+        var position = getCursorPosition();
         
-        if( position.ch > 0) {
-            Editor.setCursorPos(position.line, position.ch - 1);
+        if (position.ch > 0) {
+            setCursorPosition(position.line, position.ch - 1);
         }
     }
     
     function handleRight() {
-        var Editor = EditorManager.getFocusedEditor();
-        var position = Editor.getCursorPos();
+        var position = getCursorPosition();
         
-        Editor.setCursorPos(position.line, position.ch + 1);
+        setCursorPosition(position.line, position.ch + 1);
     }
-    
     
     CommandManager.register("Nav-shortcuts UP", UP, handleUp);
     CommandManager.register("Nav-shortcuts DOWN", DOWN, handleDown);
