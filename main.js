@@ -9,7 +9,8 @@ define(function (require, exports, module) {
 
     var CommandManager = brackets.getModule("command/CommandManager"),
         KeyBindingManager = brackets.getModule("command/KeyBindingManager"),
-        EditorManager  = brackets.getModule("editor/EditorManager");
+        EditorManager  = brackets.getModule("editor/EditorManager"),
+        DocumentManager = brackets.getModule('document/DocumentManager');
     
     var characterPosition = 0;
     
@@ -95,7 +96,12 @@ define(function (require, exports, module) {
     }
     
     function handleLineEnd() {
+        var document = DocumentManager.getCurrentDocument();
+        var line = getLinePosition();
         
+        if (document) {
+            setCharacterPosition(document.getLine(line).length);
+        }
     }
     
     var UP = "divsmith.nav-shortcuts.up";
