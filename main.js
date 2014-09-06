@@ -92,7 +92,11 @@ define(function (require, exports, module) {
     }
     
     function handleLineBegin() {
+        var document = DocumentManager.getCurrentDocument();
         
+        if (document) {
+            setCharacterPosition(0);
+        }
     }
     
     function handleLineEnd() {
