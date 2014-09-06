@@ -49,6 +49,16 @@ define(function (require, exports, module) {
         });
     }
     
+    function getDocument(callback) {
+        var document = DocumentManager.getCurrentDocument();
+        
+        if (document) {
+            callback(document);
+        } else {
+            return false;
+        }
+    }
+    
     function getEditor(callback) {
         var Editor = EditorManager.getFocusedEditor();
         
@@ -91,21 +101,17 @@ define(function (require, exports, module) {
         setCharacterPosition(character + 1);
     }
     
+    
     function handleLineBegin() {
-        var document = DocumentManager.getCurrentDocument();
-        
-        if (document) {
-            setCharacterPosition(0);
-        }
+        setCharacterPosition(0);
     }
     
     function handleLineEnd() {
-        var document = DocumentManager.getCurrentDocument();
         var line = getLinePosition();
         
-        if (document) {
+        return getDocument(function(document) {
             setCharacterPosition(document.getLine(line).length);
-        }
+        });
     }
     
     var UP = "divsmith.nav-shortcuts.up";
