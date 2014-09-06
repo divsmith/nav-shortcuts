@@ -7,7 +7,11 @@
 define(function (require, exports, module) {
     'use strict';
 
-    console.log("INITIALIZING {ext_name} EXTENSION");
+    var CommandManager = brackets.getModule("command/CommandManager"),
+        KeyBindingManager = brackets.getModule("command/KeyBindingManager"),
+        EditorManager  = brackets.getModule("editor/EditorManager"),
+        Editor = EditorManager.getFocusedEditor();
+    
     
     
     
