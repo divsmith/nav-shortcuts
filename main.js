@@ -26,16 +26,28 @@ define(function (require, exports, module) {
     }
     
     function handleDown() {
+        var Editor = EditorManager.getFocusedEditor();
+        var position = Editor.getCursorPos();
         
+        Editor.setCursorPos(position.line + 1, position.ch);
     }
     
     function handleLeft() {
+        var Editor = EditorManager.getFocusedEditor();
+        var position = Editor.getCursorPos();
         
+        if( position.ch > 0) {
+            Editor.setCursorPos(position.line, position.ch - 1);
+        }
     }
     
     function handleRight() {
+        var Editor = EditorManager.getFocusedEditor();
+        var position = Editor.getCursorPos();
         
+        Editor.setCursorPos(position.line, position.ch + 1);
     }
+    
     
     CommandManager.register("Nav-shortcuts UP", UP, handleUp);
     CommandManager.register("Nav-shortcuts DOWN", UP, handleDown);
