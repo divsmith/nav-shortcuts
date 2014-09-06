@@ -1,10 +1,10 @@
 {
-    "name": "com.example.{ext_name}",
-    "title": "{ext_name}",
-    "description": "",
-    "homepage": "", // URL for your project
+    "name": "divsmith.nav-shortcuts",
+    "title": "Nav Shortcuts",
+    "description": "VIM style cursor movement",
+    "homepage": "https://github.com/divsmith/nav-shortcuts", // URL for your project
     "version": "1.0.0",
-    "author": "",
+    "author": "Parker Smith",
     "license": "MIT",
     "engines": {
         "brackets": ">=0.20.0"
