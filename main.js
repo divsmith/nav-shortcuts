@@ -50,9 +50,9 @@ define(function (require, exports, module) {
     
     
     CommandManager.register("Nav-shortcuts UP", UP, handleUp);
-    CommandManager.register("Nav-shortcuts DOWN", UP, handleDown);
-    CommandManager.register("Nav-shortcuts LEFT", UP, handleLeft);
-    CommandManager.register("Nav-shortcuts RIGHT", UP, handleRight);
+    CommandManager.register("Nav-shortcuts DOWN", DOWN, handleDown);
+    CommandManager.register("Nav-shortcuts LEFT", LEFT, handleLeft);
+    CommandManager.register("Nav-shortcuts RIGHT", RIGHT, handleRight);
     
     KeyBindingManager.addBinding(UP, {key: "Alt-I"});
     KeyBindingManager.addBinding(DOWN, {key: "Alt-K"});
