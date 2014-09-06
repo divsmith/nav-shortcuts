@@ -13,15 +13,11 @@ define(function (require, exports, module) {
     
     var characterPosition = 0;
     
-    function getCharacterPosition() {
+    function getCharacterPosition(callback) {
         return getEditor(function(Editor) {
             var position = Editor.getCursorPos();
             
-            if (position.ch > characterPosition) {
-                characterPosition = position.ch;
-            }
-            
-            return characterPosition;
+            return callback(position);
         });
     }
     
@@ -35,7 +31,13 @@ define(function (require, exports, module) {
     
     function setLinePosition(line) {
         return getEditor(function(Editor) {
-            return Editor.setCursorPos(line, getCharacterPosition());
+            return Editor.setCursorPos(line, getCharacterPosition(function(position) {
+                if (position.ch > characterPosition) {
+                    characterPosition = position.ch;
+                }
+                
+                return characterPosition;
+            }));
         });
     }
     
@@ -71,7 +73,9 @@ define(function (require, exports, module) {
     }
     
     function handleLeft() {
-        var character = getCharacterPosition();
+        var character = getCharacterPosition(function(position) {
+            return position.ch;
+        });
         
         if (character > 0) {
             setCharacterPosition(character - 1);
@@ -79,7 +83,9 @@ define(function (require, exports, module) {
     }
     
     function handleRight() {
-        var character = getCharacterPosition();
+        var character = getCharacterPosition(function(position) {
+            return position.ch;
+        });
         
         setCharacterPosition(character + 1);
     }
@@ -91,6 +97,7 @@ define(function (require, exports, module) {
     
     CommandManager.register("Nav-shortcuts UP", UP, handleUp);
     CommandManager.register("Nav-shortcuts DOWN", DOWN, handleDown);
+        
     CommandManager.register("Nav-shortcuts LEFT", LEFT, handleLeft);
     CommandManager.register("Nav-shortcuts RIGHT", RIGHT, handleRight);
      
