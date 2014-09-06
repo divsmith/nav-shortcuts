@@ -1,8 +1,8 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50 */
 /*global define, $, brackets */
 
-/** {ext_name} Extension 
-    description 
+/** Nav Shortcuts Extension 
+    VIM style cursor movement
 */
 define(function (require, exports, module) {
     'use strict';
