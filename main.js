@@ -9,18 +9,37 @@ define(function (require, exports, module) {
 
     var CommandManager = brackets.getModule("command/CommandManager"),
         KeyBindingManager = brackets.getModule("command/KeyBindingManager"),
-        EditorManager  = brackets.getModule("editor/EditorManager"),
-        Editor = EditorManager.getFocusedEditor();
+        EditorManager  = brackets.getModule("editor/EditorManager");
     
     var UP = "divsmith.nav-shortcuts.up";
     var DOWN = "divsmith.nav-shortcuts.down";
     var LEFT = "divsmith.nav-shortcuts.left";
     var RIGHT = "divsmith.nav-shortcuts.right";
     
+    function handleUp() {
+        var Editor = EditorManager.getFocusedEditor();
+        var position = Editor.getCursorPos();
+        
+        if (position.line > 0) {
+            Editor.setCursorPos(position.line - 1, position.ch);
+        }
+    }
+    
+    function handleDown() {
+        
+    }
+    
+    function handleLeft() {
+        
+    }
+    
+    function handleRight() {
+        
+    }
+    
     CommandManager.register("Nav-shortcuts UP", UP, handleUp);
     CommandManager.register("Nav-shortcuts DOWN", UP, handleDown);
     CommandManager.register("Nav-shortcuts LEFT", UP, handleLeft);
     CommandManager.register("Nav-shortcuts RIGHT", UP, handleRight);
-    
-    
+     
 });
