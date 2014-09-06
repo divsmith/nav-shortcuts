@@ -2,7 +2,7 @@
     "name": "divsmith.nav-shortcuts",
     "title": "Nav Shortcuts",
     "description": "VIM style cursor movement",
-    "homepage": "https://github.com/divsmith/nav-shortcuts", // URL for your project
+    "homepage": "https://github.com/divsmith/nav-shortcuts",
     "version": "1.0.0",
     "author": "Parker Smith",
     "license": "MIT",
