@@ -107,10 +107,8 @@ define(function (require, exports, module) {
     
     CommandManager.register('Nav-shortcuts Line End', LINE_END, handleLineEnd);
     CommandManager.register('Nav-shortcuts Line Begin', LINE_BEGIN, handleLineBegin);
-    
     CommandManager.register("Nav-shortcuts UP", UP, handleUp);
     CommandManager.register("Nav-shortcuts DOWN", DOWN, handleDown);
-        
     CommandManager.register("Nav-shortcuts LEFT", LEFT, handleLeft);
     CommandManager.register("Nav-shortcuts RIGHT", RIGHT, handleRight);
      
