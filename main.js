@@ -90,10 +90,23 @@ define(function (require, exports, module) {
         setCharacterPosition(character + 1);
     }
     
+    function handleLineBegin() {
+        
+    }
+    
+    function handleLineEnd() {
+        
+    }
+    
     var UP = "divsmith.nav-shortcuts.up";
     var DOWN = "divsmith.nav-shortcuts.down";
     var LEFT = "divsmith.nav-shortcuts.left";
     var RIGHT = "divsmith.nav-shortcuts.right";
+    var LINE_END = "divsmith.nav-shortcuts.line-end";
+    var LINE_BEGIN = "divsmith.nav-shortcuts.line-begin";
+    
+    CommandManager.register('Nav-shortcuts Line End', LINE_END, handleLineEnd);
+    CommandManager.register('Nav-shortcuts Line Begin', LINE_BEGIN, handleLineBegin);
     
     CommandManager.register("Nav-shortcuts UP", UP, handleUp);
     CommandManager.register("Nav-shortcuts DOWN", DOWN, handleDown);
