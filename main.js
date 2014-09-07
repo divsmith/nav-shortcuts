@@ -14,8 +14,18 @@ define(function (require, exports, module) {
     
     var characterPosition = 0;
     
+    function getEditor(callback) {
+        var Editor = EditorManager.getFocusedEditor();
+        
+        if (Editor) {
+            return callback(Editor);
+        } else {
+            return false;
+        }
+    }
+    
     function getCharacterPosition(callback) {
-        return getEditor(function(Editor) {
+        return getEditor(function (Editor) {
             var position = Editor.getCursorPos();
             
             return callback(position);
@@ -23,16 +33,16 @@ define(function (require, exports, module) {
     }
     
     function getLinePosition() {
-        return getEditor(function(Editor) {
+        return getEditor(function (Editor) {
             var position = Editor.getCursorPos();
             
-           return position.line; 
+            return position.line;
         });
     }
     
     function setLinePosition(line) {
-        return getEditor(function(Editor) {
-            return Editor.setCursorPos(line, getCharacterPosition(function(position) {
+        return getEditor(function (Editor) {
+            return Editor.setCursorPos(line, getCharacterPosition(function (position) {
                 if (position.ch > characterPosition) {
                     characterPosition = position.ch;
                 }
@@ -43,7 +53,7 @@ define(function (require, exports, module) {
     }
     
     function setCharacterPosition(character) {
-        return getEditor(function(Editor) {
+        return getEditor(function (Editor) {
             characterPosition = character;
             return Editor.setCursorPos(getLinePosition(), character);
         });
@@ -59,15 +69,6 @@ define(function (require, exports, module) {
         }
     }
     
-    function getEditor(callback) {
-        var Editor = EditorManager.getFocusedEditor();
-        
-        if (Editor) {
-            return callback(Editor);
-        } else {
-            return false;
-        }
-    }
     
     function handleUp() {
         var line = getLinePosition();
@@ -84,7 +85,7 @@ define(function (require, exports, module) {
     }
     
     function handleLeft() {
-        var character = getCharacterPosition(function(position) {
+        var character = getCharacterPosition(function (position) {
             return position.ch;
         });
         
@@ -94,7 +95,7 @@ define(function (require, exports, module) {
     }
     
     function handleRight() {
-        var character = getCharacterPosition(function(position) {
+        var character = getCharacterPosition(function (position) {
             return position.ch;
         });
         
@@ -109,7 +110,7 @@ define(function (require, exports, module) {
     function handleLineEnd() {
         var line = getLinePosition();
         
-        return getDocument(function(document) {
+        return getDocument(function (document) {
             setCharacterPosition(document.getLine(line).length);
         });
     }
