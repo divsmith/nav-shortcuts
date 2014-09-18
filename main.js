@@ -10,7 +10,8 @@ define(function (require, exports, module) {
     var CommandManager = brackets.getModule("command/CommandManager"),
         KeyBindingManager = brackets.getModule("command/KeyBindingManager"),
         EditorManager  = brackets.getModule("editor/EditorManager"),
-        DocumentManager = brackets.getModule('document/DocumentManager');
+        DocumentManager = brackets.getModule('document/DocumentManager'),
+        KeyEvent = brackets.getModule('utils/KeyEvent');
     
     var characterPosition = 0;
     
@@ -115,6 +116,31 @@ define(function (require, exports, module) {
         });
     }
     
+    function handleKeyEvent(jqueryEvent, editor, event) {
+        if (event.type === "keydown") {
+            switch (event.keyCode) {
+                case KeyEvent.DOM_VK_BACK_SPACE:
+                    characterPosition -= 1;
+                    break;
+                case KeyEvent.DOM_VK_RETURN:
+                case KeyEvent.DOM_VK_ENTER:
+                    characterPosition = 0;
+                    console.log('that');
+                    break;
+            }
+        }  
+    }    
+    
+    function updateListener(event, newEditor, oldEditor) {
+        if (newEditor) {
+            $(newEditor).on("keyEvent", handleKeyEvent);   
+        }
+        
+        if (oldEditor) {
+            $(oldEditor).off("keyEvent", handleKeyEvent);
+        }
+    }
+    
     var UP = "divsmith.nav-shortcuts.up";
     var DOWN = "divsmith.nav-shortcuts.down";
     var LEFT = "divsmith.nav-shortcuts.left";
@@ -128,5 +154,8 @@ define(function (require, exports, module) {
     CommandManager.register("Nav Shortcuts Down", DOWN, handleDown);
     CommandManager.register("Nav Shortcuts Left", LEFT, handleLeft);
     CommandManager.register("Nav Shortcuts Right", RIGHT, handleRight);
+
+   $(EditorManager).on("activeEditorChange", updateListener);
+    $(EditorManager.getActiveEditor()).on("keyEvent", handleKeyEvent);
      
 });

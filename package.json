@@ -3,7 +3,7 @@
     "title": "Nav Shortcuts",
     "description": "VIM style cursor movement",
     "homepage": "https://github.com/divsmith/nav-shortcuts",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "Parker Smith",
     "license": "MIT",
     "engines": {
